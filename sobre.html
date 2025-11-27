@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sobre - Nuria Gabriel Pale</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0;
+        }
+        
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            line-height: 1.4;
+            color: #111;
+            background: #E7EEF4;
+            overflow-x: hidden;
+        }
+        
+        :root {
+            --container-max: 1100px;
+            --pad: 1rem;
+            --accent: #3A6D8B;
+            --accent-light: #6EA0BA;
+            --muted: #4B4B4B;
+            --radius: 10px;
+            --anim-time: 1s;
+            --loader-time: 2s;
+        }
+        
+        .container {
+            width: calc(100% - 2*var(--pad));
+            max-width: var(--container-max);
+            margin-inline: auto;
+            padding: var(--pad);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: pageLoad var(--anim-time) forwards;
+        }
+        
+        @keyframes pageLoad {
+            to {
+                opacity:1; 
+                transform:translateY(0);
+            }
+        }
+        
+        /* Header */
+        header {
+            background: var(--accent);
+            color: white;
+            border-bottom: 2px solid var(--accent-light);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+        
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-block: 1rem;
+        }
+        
+        .brand {
+            font-weight: 700; 
+            letter-spacing: -.02em; 
+            font-size: 1.3rem;
+        }
+        
+        .nav-wrap {
+            position: relative;
+        }
+        
+        #nav-toggle {
+            display: none;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.3rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        nav ul {
+            display: flex; 
+            gap: 1rem; 
+            list-style: none;
+        }
+        
+        nav a {
+            padding: .5rem .8rem; 
+            text-decoration: none; 
+            color: white; 
+            border-radius: 8px; 
+            transition: 0.25s;
+        }
+        
+        nav a:hover {
+            background: var(--accent-light);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none; 
+                position: absolute; 
+                right: 1rem; 
+                top: 64px; 
+                background: var(--accent); 
+                padding: 1rem; 
+                border-radius: 8px; 
+                flex-direction: column; 
+                min-width: 160px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+            
+            #nav-toggle:checked ~ nav ul {
+                display: flex;
+            }
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: contentIn 0.8s ease forwards;
+            animation-delay: 0.3s;
+        }
+        
+        .hero-text {
+            flex: 1; 
+            padding-right: 2rem;
+        }
+        
+        .hero-text h1 {
+            font-size: 2.2rem; 
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-text h2 {
+            font-size: 1.4rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-text p {
+            margin-top: 1rem; 
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Dynamic title with animation */
+        .dynamic-title {
+            position: relative;
+            height: 1.5em;
+            overflow: hidden;
+            margin-top: 0.3rem;
+            font-size: 1.2rem;
+            color: var(--muted);
+        }
+        
+        .dynamic-title span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            opacity: 0;
+            animation: rotateText 8s ease-in-out infinite;
+            transform: translateY(100%);
+        }
+        
+        .dynamic-title span:nth-child(1) { 
+            animation-delay: 0s; 
+        }
+        
+        .dynamic-title span:nth-child(2) { 
+            animation-delay: 2s; 
+        }
+        
+        .dynamic-title span:nth-child(3) { 
+            animation-delay: 4s; 
+        }
+        
+        .dynamic-title span:nth-child(4) { 
+            animation-delay: 6s; 
+        }
+        
+        @keyframes rotateText {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100%); 
+            }
+            5% { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+            20% { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+            25% { 
+                opacity: 0; 
+                transform: translateY(-100%); 
+            }
+            100% { 
+                opacity: 0; 
+            }
+        }
+        
+        .hero-img {
+            width: 280px; 
+            height: 280px; 
+            border-radius: 50%; 
+            overflow: hidden; 
+            flex-shrink: 0; 
+            box-shadow: 0 0 25px rgba(58,109,139,0.6), 0 0 45px rgba(58,109,139,0.4); 
+            animation: flutuar 3s ease-in-out infinite; 
+            border: 3px solid rgba(58,109,139,0.7);
+        }
+        
+        .hero-img img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+        }
+        
+        @keyframes flutuar {
+            0%, 100% {
+                transform: translateY(0); 
+                box-shadow: 0 0 25px rgba(58,109,139,0.6), 0 0 45px rgba(58,109,139,0.4);
+            }
+            50% {
+                transform: translateY(-15px); 
+                box-shadow: 0 0 35px rgba(58,109,139,0.8), 0 0 60px rgba(58,109,139,0.6);
+            }
+        }
+        
+        @keyframes contentIn {
+            to {
+                transform: translateY(0); 
+                opacity: 1;
+            }
+        }
+        
+        /* Section Titles */
+        h2.section-title {
+            text-align: center; 
+            margin-top: 3rem; 
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem; 
+            color: var(--accent); 
+            text-transform: uppercase;
+        }
+         
+        /* Footer */
+        footer {
+            margin-top: 2rem; 
+            padding: 1.5rem 0; 
+            color: var(--muted); 
+            font-size: .9rem; 
+            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        /* Loader */
+        .loader-wrap {
+            position: fixed; 
+            inset: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: rgba(255,255,255,0.25); 
+            backdrop-filter: blur(8px); 
+            z-index: 9999; 
+            animation: loaderHide var(--loader-time) forwards;
+        }
+        
+        .loader-box {
+            background: rgba(255,255,255,0.9); 
+            padding: 2rem 2.5rem; 
+            border-radius: 12px; 
+            text-align: center; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12); 
+            border: 1px solid rgba(58,109,139,0.12);
+        }
+        
+        .loader-box h1 {
+            color: var(--accent); 
+            font-size: 1.4rem; 
+            margin-bottom: 1rem;
+        }
+        
+        .spinner {
+            width: 48px; 
+            height: 48px; 
+            border-radius: 50%; 
+            border: 4px solid var(--accent-light); 
+            border-top-color: var(--accent); 
+            margin: 0 auto; 
+            animation: spin 0.9s linear infinite;
+        }
+        
+        .loader-msg {
+            margin-top: 0.8rem; 
+            color: var(--accent); 
+            font-weight: 600; 
+            opacity: 1; 
+            animation: blink 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.35;
+            }
+        }
+        
+        @keyframes loaderHide {
+            0% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0; 
+                visibility: hidden; 
+                pointer-events: none;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                gap: 2rem;
+                min-height: auto;
+                padding: 1.5rem;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+            }
+            
+            .hero-img {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-img {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-text h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader-wrap">
+        <div class="loader-box">
+            <h1>Nuria Gabriel Pale</h1>
+            <div class="spinner"></div>
+            <div class="loader-msg">Carregando...</div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container header-inner nav-wrap">
+            <div class="brand">Nuria Gabriel Pale</div>
+            <input type="checkbox" id="nav-toggle">
+            <label class="menu-btn" for="nav-toggle"><i class="fas fa-bars"></i></label>
+            <nav aria-label="Principal">
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="habilidades.html">Habilidades</a></li>
+                    <li><a href="projectos.html">Projectos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Nuria Gabriel Pale</h1>
+                <h2 class="dynamic-title">
+                    <span>Técnico Informático</span>
+                    <span>Web Developer</span>
+                    <span>Designer</span>
+                    <span>Artist</span>
+                </h2>
+                <h2>Sobre Mim</h2>
+                <p>
+                    O meu nome é Núria Gabriel Pale e sou estudante do curso de Técnica de Suporte
+                    Informático no Instituto de Transportes e Comunicações (ITC).
+                    Sou apaixonada por tecnologia e interessada em compreender o funcionamento dos
+                    sistemas informáticos, bem como em encontrar soluções práticas para melhorar o 
+                    desempenho de equipamentos e redes.
+                </p>
+            </div>
+            <div class="hero-img">
+                <img src="./scr/img/Perfil.jpg" alt="Foto de perfil de Nuria Gabriel Pale">
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nuria Gabriel Pale.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

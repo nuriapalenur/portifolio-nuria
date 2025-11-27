@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Currículo — Nuria Pale</title>
+  <meta name="description" content="Currículo profissional de Nuria Pale - Desenvolvedora Web e Técnica em Informática">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after {box-sizing: border-box; margin: 0; padding: 0}
+    html, body {height: 100%;}
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      line-height: 1.4;
+      color: #111;
+      background: #E7EEF4;
+      overflow-x: hidden;
+    }
+    
+    :root{
+      --container-max: 1100px;
+      --pad: 1rem;
+      --accent: #3A6D8B;
+      --accent-light: #6EA0BA;
+      --accent-dark: #2A556D;
+      --muted: #4B4B4B;
+      --light-bg: #f8f9fa;
+      --radius: 10px;
+      --anim-time: 1s;
+    }
+
+    .container{
+      width: calc(100% - 2*var(--pad));
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding: var(--pad);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: pageLoad var(--anim-time) forwards;
+    }
+
+    @keyframes pageLoad {
+      to {opacity:1; transform:translateY(0);}
+    }
+
+    /* Navbar */
+    header{
+      background: var(--accent);
+      color: white;
+      border-bottom: 2px solid var(--accent-light);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .header-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 1rem;
+    }
+    
+    .brand{
+      font-weight: 700; 
+      letter-spacing: -.02em; 
+      font-size:1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .brand i {
+      font-size: 1.1rem;
+    }
+
+    .nav-wrap{position:relative}
+    #nav-toggle{display:none}
+    .menu-btn {
+      display: none;
+      font-size: 1.3rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    nav ul{display:flex; gap: 1rem; list-style:none}
+    nav a{
+      padding: .5rem .8rem; 
+      text-decoration:none; 
+      color:white; 
+      border-radius:8px; 
+      transition:0.25s;
+      font-weight: 500;
+    }
+    
+    nav a:hover, nav a:focus{
+      background: var(--accent-light);
+      outline: none;
+    }
+    
+    nav a.active {
+      background: var(--accent-dark);
+    }
+
+    @media (max-width: 768px){
+      .menu-btn{display:block}
+      nav ul{
+        display:none; 
+        position:absolute; 
+        right:0; 
+        top:64px; 
+        background:var(--accent); 
+        padding:1rem; 
+        border-radius:8px; 
+        flex-direction:column; 
+        min-width:160px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+      #nav-toggle:checked ~ nav ul{display:flex}
+    }
+
+    h2.section-title{
+      color:var(--accent); 
+      text-align:center; 
+      margin-bottom:1.5rem; 
+      text-transform:uppercase;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    h2.section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--accent-light);
+    }
+
+    /* Currículo */
+    .curriculo-section {
+      display:flex; 
+      gap:2rem; 
+      margin-top:2rem; 
+      padding:2rem; 
+      background:#fff; 
+      border-radius:var(--radius); 
+      box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .curriculo-left{
+      flex:1; 
+      display:flex; 
+      flex-direction:column; 
+      gap:1.2rem;
+    }
+    
+    .curriculo-right{
+      flex:0 0 250px; 
+      display:flex; 
+      align-items:flex-start; 
+      justify-content:center;
+    }
+    
+    .curriculo-right img{
+      border-radius:var(--radius); 
+      width:100%; 
+      animation: floatImg 3s ease-in-out infinite; 
+      box-shadow:0 4px 20px rgba(58,109,139,0.3);
+      border: 3px solid var(--accent-light);
+    }
+
+    @keyframes floatImg {0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+
+    .curriculo-item {
+      padding:1rem; 
+      border-left:4px solid var(--accent); 
+      background:var(--light-bg); 
+      border-radius:6px; 
+      transition:0.3s; 
+      cursor:pointer;
+    }
+    
+    .curriculo-item:hover{
+      background:#e1ebf2; 
+      transform: translateX(5px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+    
+    .curriculo-item h3 {
+      margin-bottom:0.3rem; 
+      color:var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .curriculo-item h3 i {
+      font-size: 0.9rem;
+    }
+    
+    .curriculo-item p {
+      color:var(--muted);
+      line-height: 1.5;
+    }
+
+    .download-btn {
+      display:inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top:1rem; 
+      padding:0.6rem 1.2rem; 
+      background:var(--accent); 
+      color:white; 
+      border-radius:var(--radius); 
+      text-decoration:none; 
+      font-weight:600; 
+      transition:0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    
+    .download-btn:hover{
+      background:var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    /* Modal Images com transição */
+    .modal-img{
+      display:block; 
+      max-width:100%; 
+      border-radius:var(--radius); 
+      box-shadow:0 4px 15px rgba(0,0,0,0.15); 
+      opacity:0; 
+      max-height:0; 
+      overflow:hidden; 
+      transition: all 0.5s ease;
+      margin-top: 0;
+    }
+    
+    input[type=checkbox]{display:none;}
+    
+    input:checked + .modal-img{
+      opacity:1; 
+      max-height:500px; 
+      margin-top:0.5rem;
+    }
+
+    .curriculo-item label{
+      cursor:pointer; 
+      display:block; 
+      color:var(--accent); 
+      text-decoration:underline;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .curriculo-item label:hover{
+      text-decoration:none;
+      color: var(--accent-dark);
+    }
+
+    /* Seção de Projetos */
+    .projects-section {
+      margin-top:3rem;
+      padding: 2rem;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .projects-grid {
+      display:grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap:1.5rem;
+    }
+    
+    .project-card {
+      perspective:1000px;
+    }
+    
+    .project-inner {
+      position:relative; 
+      width:100%; 
+      height:300px; 
+      text-align:center; 
+      transition: transform 0.8s; 
+      transform-style: preserve-3d; 
+      cursor:pointer;
+      border-radius: var(--radius);
+    }
+    
+    .project-card:hover .project-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .project-front, .project-back {
+      position:absolute; 
+      width:100%; 
+      height:100%; 
+      -webkit-backface-visibility:hidden; 
+      backface-visibility:hidden; 
+      border-radius:var(--radius); 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      flex-direction:column; 
+      box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .project-front {
+      background: var(--accent);
+      color: white;
+      overflow: hidden;
+    }
+    
+    .project-front img{
+      width:100%; 
+      height:100%; 
+      object-fit:cover;
+      transition: transform 0.5s;
+    }
+    
+    .project-card:hover .project-front img {
+      transform: scale(1.05);
+    }
+    
+    .project-back{
+      background:var(--light-bg); 
+      transform: rotateY(180deg); 
+      padding:1.5rem;
+      text-align: center;
+    }
+    
+    .project-back h3{
+      margin-bottom:0.5rem; 
+      color:var(--accent);
+      font-size: 1.2rem;
+    }
+    
+    .project-back p{
+      color:var(--muted); 
+      font-size:0.95rem; 
+      margin-bottom:1rem;
+      line-height: 1.5;
+    }
+    
+    .project-back .download-btn {
+      margin-top: auto;
+    }
+
+    /* Seção de Contato */
+    .contact-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      transition: 0.3s;
+    }
+    
+    .contact-item:hover {
+      background: #e1ebf2;
+      transform: translateY(-3px);
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .contact-details h4 {
+      margin-bottom: 0.3rem;
+      color: var(--accent);
+    }
+    
+    .contact-details a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    
+    .contact-details a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width:600px){
+      .curriculo-section{
+        flex-direction:column;
+        padding: 1.5rem;
+      }
+      
+      .curriculo-right{
+        order:-1;
+        margin-bottom: 1.5rem;
+      }
+      
+      .projects-section, .contact-section {
+        padding: 1.5rem;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      transition: 0.3s;
+    }
+    
+    .social-links a:hover {
+      background: var(--accent-light);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner nav-wrap">
+      <div class="brand">
+        <i class="fas fa-user-circle"></i>
+        Nuria Pale
+      </div>
+      <input type="checkbox" id="nav-toggle">
+      <label class="menu-btn" for="nav-toggle" aria-label="Abrir menu">
+        <i class="fas fa-bars"></i>
+      </label>
+      <nav aria-label="Navegação principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="habilidades.html">Habilidades</a></li>
+          <li><a href="projectos.html" class="active">Projetos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <main class="container">
+    <section class="curriculo-section">
+      <div class="curriculo-left">
+        <h2 class="section-title">Currículo</h2>
+
+        <div class="curriculo-item">
+          <h3><i class="fas fa-user"></i> Núria Gabriel Pale</h3>
+          <p>Desenvolvedora Web e Técnica em Informática</p>
+        </div>
+
+        <div class="curriculo-item">
+          <h3><i class="fas fa-bullseye"></i> Objetivo Profissional</h3>
+          <p>Atuar em projetos de tecnologia que desafiem minhas habilidades técnicas e criativas, contribuindo para soluções inovadoras e eficientes.</p>
+        </div>
+
+        <div class="curriculo-item">
+          <h3><i class="fas fa-graduation-cap"></i> Formação</h3>
+          <label for="formacao-toggle">
+            <input type="checkbox" id="formacao-toggle">
+            Instituto de Transportes e Comunicações (2021-2024)
+          </label>
+          <img class="modal-img" src="img/formacao.jpg" alt="Instituto de Transportes e Comunicações">
+          <p>Curso técnico em Informática com foco em desenvolvimento web e suporte técnico.</p>
+        </div>
+
+        <div class="curriculo-item">
+          <h3><i class="fas fa-briefcase"></i> Experiência Profissional</h3>
+          <label for="experiencia-toggle">
+            <input type="checkbox" id="experiencia-toggle">
+            Empresa XYZ — Estágio em Desenvolvimento Web (2023)
+          </label>
+          <img class="modal-img" src="img/experiencia.jpg" alt="Empresa XYZ">
+          <p>Desenvolvimento de interfaces web responsivas, manutenção de sites e suporte técnico a usuários.</p>
+        </div>
+
+        <div class="curriculo-item">
+          <h3><i class="fas fa-cogs"></i> Habilidades</h3>
+          <p><strong>Técnicas:</strong> HTML5, CSS3, JavaScript, Git, WordPress</p>
+          <p><strong>Soft Skills:</strong> Trabalho em equipe, Resolução de problemas, Comunicação eficaz</p>
+        </div>
+
+        <a href="./scr/Curriculum_Nuria_Pale[1].pdf" class="download-btn" download>
+          <i class="fas fa-download"></i> Baixar Currículo (PDF)
+        </a>
+      </div>
+
+      <div class="curriculo-right">
+        <img src="./scr/img/Perfil.jpg" alt="Foto de perfil de Nuria Pale">
+      </div>
+    </section>
+
+    <section class="projects-section">
+      <h2 class="section-title">Meus Projetos</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front">
+              <img src="./scr/img/projecto-de-eletricidade.jpg" alt="Projeto de Eletricidade">
+            </div>
+            <div class="project-back">
+              <h3>Projeto de Eletricidade</h3>
+              <p>Sistema de automação residencial com controle remoto via aplicativo móvel.</p>
+              <a href="./scr/projeto_integral_34[2].pdf" class="download-btn" download>
+                <i class="fas fa-download"></i> Baixar Projeto
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front">
+              <img src="./scr/img/projecto-de-suporte.jpg" alt="Projeto de Informática">
+            </div>
+            <div class="project-back">
+              <h3>Projeto de Informática</h3>
+              <p>Sistema de gestão para pequenas empresas com módulos de vendas, estoque e clientes.</p>
+              <a href="./scr/Projecto Intregral CV4.pdf" class="download-btn" download>
+                <i class="fas fa-download"></i> Baixar Projeto
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front">
+              <img src="./scr/img/projecto-de-pagina.web.jpg" alt="Projeto Página Web">
+            </div>
+            <div class="project-back">
+              <h3>Projeto Página Web</h3>
+              <p>Site responsivo para restaurante local com sistema de reservas online.</p>
+              <a href="./scr/kekkkekke/index.html" class="download-btn">
+                <i class="fas fa-download"></i> Baixar Projeto
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <h2 class="section-title">Contactos</h2>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Email</h4>
+            <a href="mailto:nuriagabrielp@gmail.com">nuriagabrielp@gmail.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Telefone</h4>
+            <a href="tel:+258855229567">+258 855229567</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <div class="contact-details">
+            <h4>WhatsApp</h4>
+            <a href="https://wa.me/258855229567" target="_blank">Enviar mensagem</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Localização</h4>
+            <p>Maputo, Moçambique</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="footer-content">
+      <p>Nuria Pale &copy; 2025 -</p>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+      <p class="copyright">Desenvolvido com <i class="fas fa-heart" style="color: #ff6b6b;"></i> por Nuria Pale</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Habilidades - Nuria Gabriel Pale</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0;
+        }
+        
+        html, body {
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #E7EEF4 0%, #d5e3ed 100%);
+            overflow-x: hidden;
+        }
+        
+        :root {
+            --container-max: 1200px;
+            --pad: 1.5rem;
+            --accent: #3A6D8B;
+            --accent-light: #6EA0BA;
+            --accent-dark: #2a526b;
+            --muted: #5a6c7d;
+            --light: #ffffff;
+            --radius: 12px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        .container {
+            width: calc(100% - 2*var(--pad));
+            max-width: var(--container-max);
+            margin-inline: auto;
+            padding: var(--pad);
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: var(--accent);
+            border-bottom: 1px solid rgba(58, 109, 139, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-block: 1.2rem;
+        }
+        
+        .brand {
+            font-weight: 700; 
+            letter-spacing: -.02em; 
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+        
+        .nav-wrap {
+            position: relative;
+        }
+        
+        #nav-toggle {
+            display: none;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.3rem;
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+        }
+        
+        nav ul {
+            display: flex; 
+            gap: 1.5rem; 
+            list-style: none;
+        }
+        
+        nav a {
+            padding: .6rem 1rem; 
+            text-decoration: none; 
+            color: var(--accent); 
+            border-radius: 8px; 
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(58, 109, 139, 0.1);
+            color: var(--accent-dark);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 70%;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none; 
+                position: absolute; 
+                right: 0; 
+                top: 60px; 
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(10px);
+                padding: 1.5rem; 
+                border-radius: 12px; 
+                flex-direction: column; 
+                min-width: 180px;
+                box-shadow: var(--shadow);
+                border: 1px solid rgba(0,0,0,0.05);
+            }
+            
+            #nav-toggle:checked ~ nav ul {
+                display: flex;
+            }
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Skills Categories */
+        .skills-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(58, 109, 139, 0.2);
+            border-radius: 30px;
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(58, 109, 139, 0.3);
+        }
+        
+        /* Skills Grid */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .skill-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+        
+        .skill-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(58, 109, 139, 0.1);
+            border-radius: 10px;
+            margin-right: 1rem;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .skill-title {
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .skill-description {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .skill-level {
+            margin-bottom: 1rem;
+        }
+        
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .skill-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(58, 109, 139, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .stats-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            padding: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--muted);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 4rem; 
+            padding: 2.5rem 0; 
+            color: var(--muted); 
+            font-size: .9rem; 
+            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skill-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-inner nav-wrap">
+            <div class="brand">Nuria Gabriel Pale</div>
+            <input type="checkbox" id="nav-toggle">
+            <label class="menu-btn" for="nav-toggle"><i class="fas fa-bars"></i></label>
+            <nav aria-label="Principal">
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="habilidades.html" class="active">Habilidades</a></li>
+                    <li><a href="projectos.html">Projectos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Header -->
+        <section class="page-header">
+            <h1 class="page-title">Minhas Habilidades</h1>
+            <p class="page-subtitle">Uma visão detalhada das minhas competências técnicas e profissionais, adquiridas através de estudo e prática contínua.</p>
+        </section>
+        
+        <!-- Skills Categories -->
+        <div class="skills-categories">
+            <button class="category-btn active" data-category="all">Todas</button>
+            <button class="category-btn" data-category="tech">Tecnologias</button>
+            <button class="category-btn" data-category="design">Design</button>
+            <button class="category-btn" data-category="soft">Habilidades Pessoais</button>
+        </div>
+        
+        <!-- Skills Grid -->
+        <div class="skills-container">
+            <!-- Technical Skills -->
+            <div class="skill-card" data-category="tech">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3 class="skill-title">HTML5</h3>
+                </div>
+                <p class="skill-description">Desenvolvimento de estruturas web semânticas e acessíveis seguindo os padrões mais recentes.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="95"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Semântica</span>
+                    <span class="skill-tag">Acessibilidade</span>
+                    <span class="skill-tag">SEO</span>
+                </div>
+            </div>
+            
+            <div class="skill-card" data-category="tech">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3 class="skill-title">CSS3</h3>
+                </div>
+                <p class="skill-description">Criação de designs responsivos e modernos utilizando Flexbox, Grid e animações CSS.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="90"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Flexbox</span>
+                    <span class="skill-tag">Grid</span>
+                    <span class="skill-tag">Responsivo</span>
+                </div>
+            </div>
+            
+            <div class="skill-card" data-category="tech">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3 class="skill-title">JavaScript</h3>
+                </div>
+                <p class="skill-description">Desenvolvimento de interatividade e funcionalidades dinâmicas para aplicações web.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>50%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="50"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">DOM</span>
+                    <span class="skill-tag">ES6+</span>
+                    <span class="skill-tag">Interatividade</span>
+                </div>
+            </div>
+            
+            <div class="skill-card" data-category="tech">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="skill-title">Suporte Técnico</h3>
+                </div>
+                <p class="skill-description">Resolução de problemas técnicos em hardware, software e redes de computadores.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Hardware</span>
+                    <span class="skill-tag">Software</span>
+                    <span class="skill-tag">Redes</span>
+                </div>
+            </div>
+            
+            <!-- Design Skills -->
+            <div class="skill-card" data-category="design">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="skill-title">Design de Interface</h3>
+                </div>
+                <p class="skill-description">Criação de interfaces intuitivas e visualmente atraentes com foco na experiência do usuário.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="75"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">UI/UX</span>
+                    <span class="skill-tag">Wireframing</span>
+                    <span class="skill-tag">Prototipagem</span>
+                </div>
+            </div>
+            
+            <div class="skill-card" data-category="design">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="skill-title">Design Gráfico</h3>
+                </div>
+                <p class="skill-description">Desenvolvimento de elementos visuais, ilustrações e identidades visuais consistentes.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="70"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Ilustração</span>
+                    <span class="skill-tag">Branding</span>
+                    <span class="skill-tag">Composição</span>
+                </div>
+            </div>
+            
+            <!-- Soft Skills -->
+            <div class="skill-card" data-category="soft">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="skill-title">Resolução de Problemas</h3>
+                </div>
+                <p class="skill-description">Análise de situações complexas e desenvolvimento de soluções eficazes e criativas.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>78%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="78"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Análise</span>
+                    <span class="skill-tag">Criatividade</span>
+                    <span class="skill-tag">Pensamento Lógico</span>
+                </div>
+            </div>
+            
+            <div class="skill-card" data-category="soft">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="skill-title">Comunicação</h3>
+                </div>
+                <p class="skill-description">Transmissão clara de ideias e informações, tanto verbalmente quanto por escrito.</p>
+                <div class="skill-level">
+                    <div class="skill-label">
+                        <span>Proficiência</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="80"></div>
+                    </div>
+                </div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Clareza</span>
+                    <span class="skill-tag">Empatia</span>
+                    <span class="skill-tag">Escuta Ativa</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <h2 class="stats-title">Estatísticas das Minhas Habilidades</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Habilidades Principais</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Áreas de Especialização</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Maior Proficiência</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2+</div>
+                    <div class="stat-label">Anos de Estudo</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2025 Nuria Gabriel Pale.</p>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Animate skill bars on scroll
+        const animateSkillBars = () => {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, 300);
+            });
+        };
+        
+        // Filter skills by category
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const skillCards = document.querySelectorAll('.skill-card');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter skills
+                const category = button.getAttribute('data-category');
+                
+                skillCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            // Animate skill bars
+            setTimeout(animateSkillBars, 500);
+            
+            // Add initial animation to skill cards
+            skillCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + index * 100);
+            });
+        });
+        
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe stats for animation
+        document.querySelectorAll('.stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contactos - Nuria Gabriel Pale</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after {box-sizing: border-box; margin: 0; padding: 0}
+    html, body {height: 100%;}
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      line-height: 1.4;
+      color: #111;
+      background: #E9F1F7;
+      overflow-x: hidden;
+    }
+
+    :root{
+      --container-max: 1100px;
+      --pad: 1rem;
+      --accent: #3A6D8B;
+      --accent-light: #6EA0BA;
+      --muted: #4B4B4B;
+      --radius: 10px;
+      --loader-time: 3s;
+    }
+
+    .container{
+      width: calc(100% - 2*var(--pad));
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding: var(--pad);
+    }
+
+    header{
+      background: var(--accent);
+      color: white;
+      border-bottom: 2px solid var(--accent-light);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .header-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 1rem;
+    }
+    .brand{font-weight: 700; letter-spacing: -.02em; font-size:1.3rem}
+
+    .nav-wrap{position:relative}
+    #nav-toggle{display:none}
+    .menu-btn {
+      display: none;
+      font-size: 1.3rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    nav ul{display:flex; gap: 1rem; list-style:none}
+    nav a{padding: .5rem .8rem; text-decoration:none; color:white; border-radius:8px; transition:0.25s}
+    nav a:hover{background: var(--accent-light);}
+
+    @media (max-width: 768px){
+      .menu-btn{display:block}
+      nav ul{display:none; position:absolute; right:1rem; top:64px; background:var(--accent); padding:1rem; border-radius:8px; flex-direction:column; min-width:160px}
+      #nav-toggle:checked ~ nav ul{display:flex}
+    }
+
+    h2.section-title{text-align:center; margin-top: 3rem; font-size: 1.6rem; color: var(--accent); text-transform: uppercase}
+
+    /* Estilos da página de contatos */
+    .contact-page {
+      padding: 2rem 0;
+    }
+
+    .contact-hero {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .contact-hero h1 {
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .contact-hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .contact-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Estilos do formulário de contato */
+    .contact-form {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(58, 109, 139, 0.2);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .btn-submit {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    
+    .btn-submit:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+    
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+    }
+    
+    .form-success {
+      display: none;
+      padding: 1.5rem;
+      background: #e8f5e9;
+      border-radius: var(--radius);
+      border-left: 4px solid #4caf50;
+      margin-top: 1.5rem;
+    }
+    
+    .form-success.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Estilos das informações de contato */
+    .contact-info {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-details h3 {
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-details p {
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .contact-link:hover {
+      color: var(--accent-light);
+      text-decoration: underline;
+    }
+
+    /* Mapa de localização */
+    .location-map {
+      margin-top: 3rem;
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .map-placeholder {
+      height: 300px;
+      background: #f5f5f5;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    footer{margin-top:2rem; padding: 1rem 0; color:var(--muted); font-size:.9rem; text-align:center}
+
+    .loader-wrap{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.25); backdrop-filter: blur(8px); z-index:9999; animation: loaderHide var(--loader-time) forwards;}
+    .loader-box{background: rgba(255,255,255,0.9); padding: 2rem 2.5rem; border-radius: 12px; text-align:center; box-shadow: 0 8px 30px rgba(0,0,0,0.12); border: 1px solid rgba(58,109,139,0.12)}
+    .loader-box h1{color:var(--accent); font-size:1.4rem; margin-bottom:1rem}
+    .spinner{width:48px; height:48px; border-radius:50%; border:4px solid var(--accent-light); border-top-color: var(--accent); margin:0 auto; animation: spin 0.9s linear infinite}
+    .loader-msg{margin-top:0.8rem; color:var(--accent); font-weight:600; opacity:1; animation: blink 1s linear infinite}
+
+    @keyframes spin {to{transform: rotate(360deg)}}
+    @keyframes blink {0%,50%{opacity:1}100%{opacity:0.35}}
+    @keyframes loaderHide {0%{opacity:1}90%{opacity:1}100%{opacity:0; visibility:hidden; pointer-events:none}}
+
+    @media (max-width: 600px){
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+      .contact-hero {
+        padding: 1.5rem;
+      }
+      .contact-hero h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="loader-wrap" aria-hidden="true">
+    <div class="loader-box">
+      <h1>Carregando Contactos</h1>
+      <div class="spinner" role="img" aria-label="Loading"></div>
+      <div class="loader-msg">Por favor aguarde...</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container header-inner nav-wrap">
+      <div class="brand">Nuria Gabriel Pale</div>
+      <input type="checkbox" id="nav-toggle">
+      <label class="menu-btn" for="nav-toggle"><i class="fas fa-bars"></i></label>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="habilidades.html">Habilidades</a></li>
+          <li><a href="projectos.html">Projectos</a></li>
+          <li><a href="contactos.html" style="background: var(--accent-light);">Contacto</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container contact-page">
+    <section class="contact-hero">
+      <h1>Entre em Contacto</h1>
+      <p>Estou sempre disponível para discutir novos projectos, oportunidades criativas ou parcerias. Entre em contacto e vamos conversar!</p>
+    </section>
+
+    <div class="contact-content">
+      <!-- Formulário de Contacto -->
+      <section class="contact-form">
+        <h2 class="section-title">Envie uma Mensagem</h2>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome Completo</label>
+              <input type="text" id="nome" name="nome" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="assunto">Assunto</label>
+            <input type="text" id="assunto" name="assunto" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" class="form-control" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Enviar Mensagem</button>
+          <div class="form-success" id="formSuccess">
+            <p><i class="fas fa-check-circle" style="color: #4caf50;"></i> Obrigada! Sua mensagem foi enviada com sucesso. Entrarei em contato em breve.</p>
+          </div>
+        </form>
+      </section>
+
+      <!-- Informações de Contacto -->
+      <section class="contact-info">
+        <h2 class="section-title">Informações de Contacto</h2>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="contact-details">
+            <h3>Telefone</h3>
+            <p>Disponível para chamadas e WhatsApp</p>
+            <a href="tel:+258855229567" class="contact-link">+258 85 522 9567</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-details">
+            <h3>E-mail</h3>
+            <p>Envie-me um e-mail a qualquer momento</p>
+            <a href="mailto:nuriagabrielp@gmail.com" class="contact-link">nuriagabrielp@gmail.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-details">
+            <h3>Localização</h3>
+            <p>Maputo, Moçambique</p>
+            <p>Disponível para trabalhos remotos e presenciais</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="contact-details">
+            <h3>Horário de Trabalho</h3>
+            <p>Segunda a Sexta: 9h00 - 18h00</p>
+            <p>Sábado: 10h00 - 14h00</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 — Nuria Gabriel Pale</p>
+  </footer>
+
+  <script>
+    // JavaScript para o formulário de contato
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.getElementById('contactForm');
+      const formSuccess = document.getElementById('formSuccess');
+      
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Simulação de envio do formulário
+        // Em um caso real, aqui você enviaria os dados para um servidor
+        
+        // Mostrar mensagem de sucesso
+        formSuccess.classList.add('show');
+        
+        // Limpar formulário
+        contactForm.reset();
+        
+        // Rolar para a mensagem de sucesso
+        formSuccess.scrollIntoView({ behavior: 'smooth' });
+        
+        // Opcional: Esconder a mensagem após alguns segundos
+        setTimeout(function() {
+          formSuccess.classList.remove('show');
+        }, 5000);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Página — Nuria pale </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after {box-sizing: border-box; margin: 0; padding: 0}
+    html, body {height: 100%;}
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      line-height: 1.4;
+      color: #111;
+      background: #E9F1F7;
+      overflow-x: hidden;
+    }
+
+    :root{
+      --container-max: 1100px;
+      --pad: 1rem;
+      --accent: #3A6D8B;
+      --accent-light: #6EA0BA;
+      --muted: #4B4B4B;
+      --radius: 10px;
+      --loader-time: 3s;
+    }
+
+    .container{
+      width: calc(100% - 2*var(--pad));
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding: var(--pad);
+    }
+
+    header{
+      background: var(--accent);
+      color: white;
+      border-bottom: 2px solid var(--accent-light);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .header-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 1rem;
+    }
+    .brand{font-weight: 700; letter-spacing: -.02em; font-size:1.3rem}
+
+    .nav-wrap{position:relative}
+    #nav-toggle{display:none}
+    .menu-btn {
+      display: none;
+      font-size: 1.3rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    nav ul{display:flex; gap: 1rem; list-style:none}
+    nav a{padding: .5rem .8rem; text-decoration:none; color:white; border-radius:8px; transition:0.25s}
+    nav a:hover{background: var(--accent-light);}
+
+    @media (max-width: 768px){
+      .menu-btn{display:block}
+      nav ul{display:none; position:absolute; right:1rem; top:64px; background:var(--accent); padding:1rem; border-radius:8px; flex-direction:column; min-width:160px}
+      #nav-toggle:checked ~ nav ul{display:flex}
+    }
+
+    .hero{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height: 80vh;
+      padding: 2rem;
+      background: #E9F1F7;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      margin-top: 2rem;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: contentIn 0.8s ease forwards;
+      animation-delay: var(--loader-time);
+    }
+
+    .hero-text{flex:1; padding-right: 2rem;}
+    .hero-text h1{font-size: 2.2rem; color: var(--accent);}
+    .hero-text p{font-style: italic; margin-top: 1rem; color: #333;}
+    .hero-text .btn-explorar{display: inline-block; margin-top: 1.5rem; padding: 0.8rem 1.5rem; background: var(--accent); color: white; border-radius: var(--radius); text-decoration: none; font-weight: 600; transition: background 0.3s;}
+    .hero-text .btn-explorar:hover{background: var(--accent-light);}
+
+    /* Dynamic title with animation */
+    .dynamic-title {
+      position: relative;
+      height: 1.5em;
+      overflow: hidden;
+      margin-top: 0.3rem;
+      font-size: 1.2rem;
+      color: var(--muted);
+    }
+
+    .dynamic-title span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      opacity: 0;
+      animation: rotateText 8s ease-in-out infinite;
+      transform: translateY(100%);
+    }
+    .dynamic-title span:nth-child(1) { animation-delay: 0s; }
+    .dynamic-title span:nth-child(2) { animation-delay: 2s; }
+    .dynamic-title span:nth-child(3) { animation-delay: 4s; }
+    .dynamic-title span:nth-child(4) { animation-delay: 6s; }
+
+    @keyframes rotateText {
+      0% { opacity: 0; transform: translateY(100%); }
+      5% { opacity: 1; transform: translateY(0); }
+      20% { opacity: 1; transform: translateY(0); }
+      25% { opacity: 0; transform: translateY(-100%); }
+      100% { opacity: 0; }
+    }
+
+    .hero-img{width: 280px; height: 280px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 0 25px rgba(58,109,139,0.6), 0 0 45px rgba(58,109,139,0.4); animation: flutuar 3s ease-in-out infinite; border: 3px solid rgba(58,109,139,0.7);}    
+    .hero-img img{width: 100%; height: 100%; object-fit: cover;}
+
+    @keyframes flutuar {0%,100%{transform: translateY(0); box-shadow: 0 0 25px rgba(58,109,139,0.6), 0 0 45px rgba(58,109,139,0.4);}50%{transform: translateY(-15px); box-shadow: 0 0 35px rgba(58,109,139,0.8), 0 0 60px rgba(58,109,139,0.6);}}
+    @keyframes contentIn {to {transform: translateY(0); opacity:1}}
+
+    h2.section-title{text-align:center; margin-top: 3rem; font-size: 1.6rem; color: var(--accent); text-transform: uppercase}
+
+    .carousel {display: flex; gap: 1.5rem; overflow-x: auto; scroll-behavior: smooth; margin-top: 1.5rem; padding-bottom: 1rem;}
+    .carousel::-webkit-scrollbar {display: none}
+    .card-link{flex: 0 0 250px; text-decoration: none}
+    .card {background: white; padding: 2rem; border-radius: var(--radius); box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s ease; height:100%}
+    .card:hover {transform: scale(1.05) rotate(1deg); box-shadow: 0 6px 20px rgba(58,109,139,0.4); border: 1px solid rgba(58,109,139,0.5);}
+    .card:active {transform: scale(0.98) rotate(-1deg); box-shadow: 0 2px 8px rgba(0,0,0,0.2);}    
+    .card h3 {margin-bottom: 0.5rem; color: #111}
+    .card p {color: var(--muted); font-size: 0.95rem}
+    .card i {font-size: 2rem; color: var(--accent); margin-bottom: 1rem}
+
+    /* Estilos do formulário de contato */
+    .contact-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(58, 109, 139, 0.2);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .btn-submit {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    
+    .btn-submit:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+    
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+    }
+    
+    .form-success {
+      display: none;
+      padding: 1.5rem;
+      background: #e8f5e9;
+      border-radius: var(--radius);
+      border-left: 4px solid #4caf50;
+      margin-top: 1.5rem;
+    }
+    
+    .form-success.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer{margin-top:2rem; padding: 1rem 0; color:var(--muted); font-size:.9rem; text-align:center}
+
+    .loader-wrap{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.25); backdrop-filter: blur(8px); z-index:9999; animation: loaderHide var(--loader-time) forwards;}
+    .loader-box{background: rgba(255,255,255,0.9); padding: 2rem 2.5rem; border-radius: 12px; text-align:center; box-shadow: 0 8px 30px rgba(0,0,0,0.12); border: 1px solid rgba(58,109,139,0.12)}
+    .loader-box h1{color:var(--accent); font-size:1.4rem; margin-bottom:1rem}
+    .spinner{width:48px; height:48px; border-radius:50%; border:4px solid var(--accent-light); border-top-color: var(--accent); margin:0 auto; animation: spin 0.9s linear infinite}
+    .loader-msg{margin-top:0.8rem; color:var(--accent); font-weight:600; opacity:1; animation: blink 1s linear infinite}
+
+    @keyframes spin {to{transform: rotate(360deg)}}
+    @keyframes blink {0%,50%{opacity:1}100%{opacity:0.35}}
+    @keyframes loaderHide {0%{opacity:1}90%{opacity:1}100%{opacity:0; visibility:hidden; pointer-events:none}}
+
+    .modal-overlay{position:fixed; inset:0; background: rgba(0,0,0,0.45); backdrop-filter: blur(4px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transform: scale(1.02); transition: all 0.25s ease; z-index:9998}
+    .modal {background:white; padding: 1.5rem; border-radius:10px; width:320px; max-width:90%; text-align:center; box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+    .modal h3{color:var(--accent); margin-bottom:0.5rem}
+    .modal .links{display:flex; flex-direction:column; gap:0.6rem; margin-top:0.6rem}
+    .modal .links a{display:block; padding:0.6rem 0.8rem; border-radius:8px; text-decoration:none; color:var(--muted); border:1px solid rgba(0,0,0,0.06)}
+    .modal .close{display:inline-block; margin-top:0.8rem; text-decoration:none; color:var(--accent)}
+
+    .show-modal:target ~ .modal-overlay{opacity:1; pointer-events:auto; transform: scale(1);}
+
+    @media (max-width: 600px){
+      .hero{flex-direction:column; gap:1rem; min-height: auto; padding:1.2rem}
+      .hero-text{padding-right:0}
+      .hero-img{width:200px;height:200px}
+      h2.section-title{margin-top:2rem}
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="loader-wrap" aria-hidden="true">
+    <div class="loader-box">
+      <h1>Welcome to my Page</h1>
+      <div class="spinner" role="img" aria-label="Loading"></div>
+      <div class="loader-msg">Please wait...</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container header-inner nav-wrap">
+      <div class="brand">Nuria Gabriel pale </div>
+      <input type="checkbox" id="nav-toggle">
+      <label class="menu-btn" for="nav-toggle"><i class="fas fa-bars"></i></label>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#Início">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="habilidades.html">Habilidades</a></li>
+          <li><a href="projectos.html"> projectos</a> </a></li>
+          <li><a href="contacto.html" class="open-contact">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Nuria Gabriel pale </h1>
+        <h2 class="dynamic-title">
+          <span>Técnico Informático</span>
+          <span>Web Developer</span>
+          <span>Designer</span>
+          <span>Artist</span>
+        </h2>
+        <p style="font-size: 19px;">"Construindo valor através do meu trabalho." — <strong>Nuria Gabriel pale</strong></p>
+        <a href="projectos.html" class="btn-explorar">Explorar</a>
+      </div>
+      <div class="hero-img">
+        <img src="./scr/img/Perfil.jpg" alt="Foto de Nuria pale">
+      </div>
+    </section>
+
+    <h2 class="section-title">Plataformas Digitais</h2>
+
+    <section class="carousel">
+      <a class="card-link" href="https://facebook.com" target="_blank">
+        <div class="card">
+          <i class="fab fa-facebook"></i>
+          <h3>Facebook</h3>
+          <p>Segue-me no Facebook e acompanha as novidades.</p>
+        </div>
+      </a>
+      <a class="card-link" href="https://instagram.com" target="_blank">
+        <div class="card">
+          <i class="fab fa-instagram"></i>
+          <h3>Instagram</h3>
+          <p>Segue o meu trabalho e dia a dia no Instagram.</p>
+        </div>
+      </a>
+      <a class="card-link" href="https://youtube.com" target="_blank">
+        <div class="card">
+          <i class="fab fa-youtube"></i>
+          <h3>YouTube</h3>
+          <p>Assiste aos meus vídeos e tutoriais no YouTube.</p>
+        </div>
+      </a>
+      <a class="card-link" href="https://github.com" target="_blank">
+        <div class="card">
+          <i class="fab fa-github"></i>
+          <h3>GitHub</h3>
+          <p>Acompanha novidades no GitHub.</p>
+        </div>
+      </a>
+      <a class="card-link" href="https://linkedin.com" target="_blank">
+        <div class="card">
+          <i class="fab fa-linkedin"></i>
+          <h3>LinkedIn</h3>
+          <p>Conecta-te comigo profissionalmente.</p>
+        </div>
+      </a>
+    </section>
+
+
+    <footer>
+      <p>© 2025 — Nuria Gabriel Pale</p>
+    </footer>
+  </main>
+
+</body>
+</html>
