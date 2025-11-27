@@ -1,0 +1,158 @@
+body{
+    color:white;
+    background-color:black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    list-style-type: center;
+    padding: 16px;
+}
+
+    a{
+        color:cyan;
+        text-decoration: none;
+    }
+
+ header img {
+    width: 150px;
+    height:150px;
+    
+
+}
+
+.center{
+    text-align: center;
+}
+
+h1{
+    color:cyan
+}
+
+footer img{
+    width: 40px;
+    height: 40px;
+    border-radius:50%
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+}
+
+footer a{
+    margin: 20px;
+    text-align: center;
+}
+
+footer P{
+    margin-top: 2px;
+}
+
+.container{
+    padding: 0px 50px;
+    
+}
+
+nav a:hover{
+    color :purple
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ }
+
+ .formulario-contato{
+    max-width: 600px;
+    margin: 0 auto;
+    backdrop-filter: blur(10px) ;
+    background: rgba(255,255,255,0.05);
+    padding: 
+    border: 1px solid rgba(255,255,255,0.1);
+    outline: none;
+
+ }
+  .campo-form:focus{
+    border-color: #4f46e5 ;
+    box-shadow: 0 0 10px rgb(72, 70, 229,0.3);
+
+  }
+
+ .grupo-from{
+    margin-bottom: 1.5rem;
+
+ }
+
+ .botao-form{
+    color: #e2e8f0;
+    background: linear-gradient(45deg, #4f46e5,purple);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: all 0.5 ease;
+
+ }
+
+ .botao-form:hover{
+    transition: translatey(-4px);
+    box-shadow: 0 5px 15px rgb(79, 70, 229,0.4);
+
+ }
+ .particulas{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    z-index: -1;
+    opacity: 0.3;
+    background: 
+    radial-gradient(circle at 10% 20%,#4f46e5,transparent 20%),
+    radial-gradient(circle at 10% 20%,#7c3aed,transparent 20%),
+    #0f172a;
+
+ }
+
+ @keyframes flutuar{
+   0%, 100%{
+      transform: translatey(50);
+
+   }
+ 50%{
+   transform:translatey(-15%px);
